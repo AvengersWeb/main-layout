@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Provider/AuthProvider';
+import axios from 'axios';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const Register = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -8,6 +11,12 @@ const Register = () => {
 
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
+
+  // AUTH RELATED STATE
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { setUser, createUser } = useContext(AuthContext)
+  const axiosPublic = useAxiosPublic()
 
   useEffect(() => {
     if ((userPass || userConPass) && userPass !== userConPass) {
@@ -31,12 +40,38 @@ const Register = () => {
     } else if (userPass.length < 8) {
       errorMessage = 'Please Provide minimum 8 digit password';
       valid = false;
-    } else if (userPass !== userConPass) {
+    } else if(!/[A-Z]/.test(userPass)) {
+      errorMessage = 'Your password must have atleast 1 capital letter';
+      valid = false;
+    } else if (!/[!@#$%^&*()\-_=+\[\]{}|\\;:'"<>,.?/]/.test(userPass)){
+      errorMessage = 'Your password must have atleast 1 special character.';
+      valid = false;
+    }   
+    else if (userPass !== userConPass) {
       errorMessage = 'Password Did not match';
       valid = false;
     }
 
     if (valid) {
+      createUser(userEmail, userPass)
+      .then( async (result) => {
+        console.log(result)
+        const userData = {
+          email: userEmail,
+          role:'user'
+        }
+        setUser(result.user)
+        const res = await axiosPublic.post('/api/v1/user', userData)
+        if(res.data._id){
+          console.log(res.data)
+          navigate('/dashboard')
+        }
+      }) 
+      .catch(error => {
+        console.log(error.code)
+        console.log('error message', error.message)
+        setMessage(error.code)
+      })
       setSuccess(true);
       setMessage('User Register Successfully! Wait For Confirmation');
       // use backend code here
@@ -115,9 +150,9 @@ const Register = () => {
             </button>
             <Link
               to="/dashboard/login"
-              className="font-bold hover:text-blue-600 duration-500"
+              className="font-bold hover:text-blue-600 duration-500 text-center"
             >
-              Login
+              Already Registered. Go to <span className='font-bold underline'>Login</span>
             </Link>
             {message !== '' && (
               <p

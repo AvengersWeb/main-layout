@@ -75,13 +75,15 @@ const AddProduct = () => {
       axiosPublic
         .post('/api/v1/addproduct', productData)
         .then((response) => {
-          if (response.data.insertedId) {
+          if (response.data._id) {
             setLoading(false);
+            
             swal(
               'Congratulation!',
               'You successfully added a product!',
               'success'
             );
+            e.target.reset()
           }
         })
         .catch((error) => {

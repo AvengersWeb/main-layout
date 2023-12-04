@@ -1,11 +1,12 @@
 import { Table } from 'flowbite-react';
 import { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import swal from 'sweetalert';
 
 const EditOrder = () => {
   const orderDetails = useLoaderData();
+  const navigate = useNavigate()
   const {
     name,
     phone,
@@ -31,12 +32,13 @@ const EditOrder = () => {
       updateData
     );
     {
-      if (updatedItem.data.modifiedCount > 0) {
+      if (updatedItem.data._id) {
         swal(
           'Congratulation!',
           'Your order status updated successfully!',
           'success'
         );
+        navigate('/dashboard/order-details')
       }
     }
   };
