@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Provider/AuthProvider';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const Login = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -8,9 +10,29 @@ const Login = () => {
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
 
+  const { setUser, signInUser, setLoadUserData } = useContext(AuthContext)
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate()
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    signInUser(userEmail, userPass)
+    .then(async (response) => {
+      const result = await axiosPublic.get(`/api/v1/user?email=${response.user.email}`)
+      if (result.data){
+        console.log(result.data)
+        setLoadUserData(result.data)
+        navigate('/dashboard')
+      }else if (result.status === 404){
+        console.log(result.message)
+      }
+      console.log(response.user.email)
+    }) .catch (error => {
+      console.log(error.code)
+      console.log(error.message)
+    })
     setSuccess(true);
     setMessage('Success');
   };

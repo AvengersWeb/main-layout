@@ -13,6 +13,7 @@ const AuthProvider = ({ children }) => {
   const [language, setLanguage] = useState('en');
   const [category, setCategory] = useState('');
   const [user, setUser] = useState(null)
+  const [loadUserDate, setLoadUserData] = useState(null)
 
   const createUser = (email, password) => {
     setLoading(true)
@@ -25,7 +26,9 @@ const AuthProvider = ({ children }) => {
   }
 
   const logOut = () => {
+    console.log('logout hit')
     setLoading(true)
+    setLoadUserData(null)
     return signOut(auth)
   }
 
@@ -57,7 +60,9 @@ const AuthProvider = ({ children }) => {
     setUser,
     createUser,
     signInUser,
-    logOut
+    logOut,
+    loadUserDate,
+    setLoadUserData
   };
 
   return (

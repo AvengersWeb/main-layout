@@ -146,7 +146,7 @@ const Register = () => {
               className="bg-black text-white font-base uppercase font-bold py-3 px-12 hover:translate-y-2 duration-500 rounded w-full my-6"
               type="submit"
             >
-              Login
+              Register
             </button>
             <Link
               to="/dashboard/login"
