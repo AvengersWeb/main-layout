@@ -12,8 +12,7 @@ import Contact from '../pages/Contact';
 
 // admin routes
 import Dashboard from '../admin/pages/Dashboard';
-import Login from '../admin/pages/Login';
-import Register from '../admin/pages/Register';
+import AdminHome from '../admin/pages/AdminHome';
 import AddProduct from '../admin/pages/AddProduct';
 import EditProduct from '../admin/pages/EditProduct';
 import AllProducts from '../admin/pages/AllProducts';
@@ -28,7 +27,6 @@ import AllBlogs from '../admin/pages/AllBlogs';
 import AddBlog from '../admin/pages/AddBlog';
 import EditBlog from '../admin/pages/EditBlog';
 import UserDetails from '../admin/pages/UserDetails';
-import PrivateRoute from './PrivateRoute';
 
 //templates
 
@@ -49,7 +47,7 @@ const router = createBrowserRouter([
         path: '/single-product/:id',
         element: <SingleProduct />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/allproducts/${params.id}`),
+          fetch(`http://localhost:1111/api/v1/allproducts/${params.id}`),
       },
       {
         path: '/checkout',
@@ -67,7 +65,7 @@ const router = createBrowserRouter([
         path: '/blog/:id',
         element: <SingleBlog />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/allblogs/${params.id}`),
+          fetch(`http://localhost:1111/api/v1/allblogs/${params.id}`),
       },
       {
         path: '/contact',
@@ -82,75 +80,70 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/dashboard/login',
-        element: <Login />,
+        element: <AdminHome />,
       },
-      {
-        path: '/dashboard/register',
-        element: <Register />,
-      },
+
       {
         path: '/dashboard',
-        element: <PrivateRoute><AllProducts /></PrivateRoute>,
+        element: <AllProducts />,
       },
       {
         path: '/dashboard/add-product',
-        element: <PrivateRoute>
-<AddProduct />
-        </PrivateRoute>,
+        element: <AddProduct />,
       },
       {
         path: '/dashboard/all-products',
-        element: <PrivateRoute><AllProducts /></PrivateRoute>,
+        element: <AllProducts />,
       },
       {
         path: '/dashboard/edit-product/:id',
-        element: <PrivateRoute><EditProduct /></PrivateRoute>,
+        element: <EditProduct />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/allproducts/${params.id}`),
+          fetch(`http://localhost:1111/api/v1/allproducts/${params.id}`),
       },
       {
         path: '/dashboard/user-details',
-        element: <PrivateRoute><UserDetails /></PrivateRoute>,
+        element: <UserDetails />,
       },
 
       // order routes
       {
         path: '/dashboard/order-details',
-        element: <PrivateRoute><OrderDetails /></PrivateRoute>,
+        element: <OrderDetails />,
       },
       {
         path: '/dashboard/order-completed',
-        element: <PrivateRoute><OrderCompleted /></PrivateRoute>,
+        element: <OrderCompleted />,
       },
       {
         path: '/dashboard/order-processing',
-        element: <PrivateRoute><OrderProcessing /></PrivateRoute>,
+        element: <OrderProcessing />,
       },
       {
         path: '/dashboard/order-onhold',
-        element: <PrivateRoute><OrderOnHold /></PrivateRoute>,
+        element: <OrderOnHold />,
       },
       {
         path: '/dashboard/edit-order/:id',
-        element: <PrivateRoute><EditOrder /></PrivateRoute>,
+        element: <EditOrder />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/allorders/${params.id}`),
+          fetch(`http://localhost:1111/api/v1/allorders/${params.id}`),
       },
 
       //blog routes
       {
         path: '/dashboard/all-blogs',
-        element: <PrivateRoute><AllBlogs /></PrivateRoute>,
+        element: <AllBlogs />,
       },
       {
         path: '/dashboard/add-blog',
-        element: <PrivateRoute><AddBlog /></PrivateRoute>,
+        element: <AddBlog />,
       },
       {
         path: '/dashboard/edit-blog/:id',
-        element: <PrivateRoute><EditBlog /></PrivateRoute>,
+        element: <EditBlog />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/allblogs/${params.id}`),
+          fetch(`http://localhost:1111/api/v1/allblogs/${params.id}`),
       },
     ],
   },
