@@ -10,7 +10,7 @@ const UserDetails = () => {
     queryKey: ['user'],
     queryFn: () =>
       axiosPublic
-        .get('/api/v1/allUsers')
+        .get('/api/user')
         .then((res) => {
           return res.data;
         })
@@ -19,14 +19,16 @@ const UserDetails = () => {
           throw error;
         }),
   });
+  console.log(data)
 
   if(isLoading){
     return <p>Loading</p>
   }
 
   const handleStatusChange = async (id) => {
-    const updateStatus = await axiosPublic.patch(`/api/v1/makeadmin/${id}`)
+    const updateStatus = await axiosPublic.patch(`/api/user/${id}`)
     if(updateStatus.data._id){
+      console.log(updateStatus)
       console.log(updateStatus.data._id)
       swal('Congratulations', 'Your make a new admin', 'success');
       refetch()
@@ -44,7 +46,7 @@ const UserDetails = () => {
       dangerMode: true,
     }).then(async (willDelete) => {
       if (willDelete) {
-          const res = await axiosPublic.delete(`/api/v1/userDelete/${id}`);
+          const res = await axiosPublic.delete(`/api/user/${id}`);
           if (res.data._id) {
               // refetch to update the ui
               refetch();

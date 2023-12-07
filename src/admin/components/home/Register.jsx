@@ -48,10 +48,8 @@ const Register = () => {
 
           console.log(data);
 
-          localStorage.setItem('userInfo', JSON.stringify(data));
           toast.success('User Created successfully!');
           setLoading(false);
-          navigate('/dashboard');
         } catch (error) {
           toast.warning('Failed To Create User!');
           setLoading(false);

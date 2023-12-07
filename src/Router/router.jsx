@@ -27,6 +27,7 @@ import AllBlogs from '../admin/pages/AllBlogs';
 import AddBlog from '../admin/pages/AddBlog';
 import EditBlog from '../admin/pages/EditBlog';
 import UserDetails from '../admin/pages/UserDetails';
+import PrivateRoute from './PrivateRoute';
 
 //templates
 
@@ -85,47 +86,87 @@ const router = createBrowserRouter([
 
       {
         path: '/dashboard',
-        element: <AllProducts />,
+        element: (
+          <PrivateRoute>
+            <AllProducts />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/add-product',
-        element: <AddProduct />,
+        element: (
+          <PrivateRoute>
+            <AddProduct />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/all-products',
-        element: <AllProducts />,
+        element: (
+          <PrivateRoute>
+            <AllProducts />,
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/edit-product/:id',
-        element: <EditProduct />,
+        element: (
+          <PrivateRoute>
+            <EditProduct />
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:1111/api/v1/allproducts/${params.id}`),
       },
       {
         path: '/dashboard/user-details',
-        element: <UserDetails />,
+        element: (
+          <PrivateRoute>
+            <UserDetails />
+          </PrivateRoute>
+        ),
       },
 
       // order routes
       {
         path: '/dashboard/order-details',
-        element: <OrderDetails />,
+        element: (
+          <PrivateRoute>
+            <OrderDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/order-completed',
-        element: <OrderCompleted />,
+        element: (
+          <PrivateRoute>
+            <OrderCompleted />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/order-processing',
-        element: <OrderProcessing />,
+        element: (
+          <PrivateRoute>
+            <OrderProcessing />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/order-onhold',
-        element: <OrderOnHold />,
+        element: (
+          <PrivateRoute>
+            <OrderOnHold />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/edit-order/:id',
-        element: <EditOrder />,
+        element: (
+          <PrivateRoute>
+            <EditOrder />
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:1111/api/v1/allorders/${params.id}`),
       },
@@ -133,15 +174,27 @@ const router = createBrowserRouter([
       //blog routes
       {
         path: '/dashboard/all-blogs',
-        element: <AllBlogs />,
+        element: (
+          <PrivateRoute>
+            <AllBlogs />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/add-blog',
-        element: <AddBlog />,
+        element: (
+          <PrivateRoute>
+            <AddBlog />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/edit-blog/:id',
-        element: <EditBlog />,
+        element: (
+          <PrivateRoute>
+            <EditBlog />
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:1111/api/v1/allblogs/${params.id}`),
       },

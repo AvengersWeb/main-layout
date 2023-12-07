@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const {setUser} = useAuth()
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +36,10 @@ const Login = () => {
         );
 
         console.log(data);
+        if(data.role !== 'admin'){
+          toast.warning('Your are not allowed');
+          return
+        }
         localStorage.setItem('userInfo', JSON.stringify(data));
         toast.success('Login Successful!');
         setLoading(false);
