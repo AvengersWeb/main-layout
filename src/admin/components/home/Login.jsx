@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +11,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const {setUser} = useAuth()
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -36,9 +34,9 @@ const Login = () => {
         );
 
         console.log(data);
-        if(data.role !== 'admin'){
+        if (data.role !== 'admin') {
           toast.warning('Your are not allowed');
-          return
+          return;
         }
         localStorage.setItem('userInfo', JSON.stringify(data));
         toast.success('Login Successful!');
@@ -96,16 +94,6 @@ const Login = () => {
           }`}
         >
           Log In
-        </button>
-        <button
-          type="submit"
-          className="bg-rose-500 hover:bg-teal-600 text-white py-4 px-6 w-full rounded-md uppercase duration-300 leading-none font-bold text-lg"
-          onClick={() => {
-            setEmail('demo@gmail.com');
-            setPassword('123456');
-          }}
-        >
-          Guest Login
         </button>
       </form>
       <ToastContainer
