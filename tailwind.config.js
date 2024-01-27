@@ -1,20 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/flowbite/**/*.{js.jsx}',
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        primary: ['Josefin Sans'],
-        secondary: ['Poppins'],
+        primary: ['Nunito'],
+        secondary: ['Spectral SC'],
       },
       colors: {
-        primary: '#ff6363',
+        primary: '#02CC67',
       },
     },
   },
-  plugins: [require('flowbite/plugin')],
+  plugins: [],
 };
